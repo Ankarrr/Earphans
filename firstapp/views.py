@@ -6,6 +6,21 @@ from django.views import generic
 
 from .models import Question, Choice
 
+# Create views through generic views here.
+class IndexView(generic.ListView):
+    template_name = 'firstapp/index.html'
+    # specify the context of object name from 'question_list' to 'latest_question_list'
+    context_object_name = 'latest_question_list'
+    model = Question
+
+class DetailView(generic.DetailView):
+    model = Question
+    template_name = 'firstapp/detail.html'
+
+class ResultsView(generic.DetailView):
+    model = Question
+    template_name = 'firstapp/results.html'
+
 # Create your views here.
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
