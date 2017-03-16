@@ -3,15 +3,33 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.http import Http404
 from django.urls import reverse
 from django.views import generic
-
+from django.utils import timezone
 from .models import Question, Choice
 
 # Create views through generic views here.
 class IndexView(generic.ListView):
     template_name = 'firstapp/index.html'
-    # specify the context of object name from 'question_list' to 'latest_question_list'
-    context_object_name = 'latest_question_list'
     model = Question
+
+    # change the object name of context
+    # from default 'object_list' to 'latest_question_list'
+    # context_object_name = 'latest_question_list'
+
+    # By default, get_queryset() returns the value of the 'queryset' attribute
+    # if it is set, otherwise it constructs a QuerySet
+    # by calling the all() method on the model attribute’s default manager.
+    #
+    # 'queryset': A QuerySet that represents the objects. If provided,
+    # the value of queryset supersedes the value provided for model.
+    def get_queryset(self):
+        """
+        Return the last five published questions (not including those set to be
+        published in the future).
+        """
+        return Question.objects.filter(
+            pub_date__lte = timezone.now()
+        ).order_by('-pub_date')[:5]
+
 
 class DetailView(generic.DetailView):
     model = Question
@@ -22,12 +40,13 @@ class ResultsView(generic.DetailView):
     template_name = 'firstapp/results.html'
 
 # Create your views here.
-def index(request):
-    latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    context = {
-        'latest_question_list': latest_question_list,
-    }
-    return render(request, 'firstapp/index.html', context)
+
+# def index(request):
+#    latest_question_list = Question.objects.order_by('-pub_date')[:5]
+#    context = {
+#        'latest_question_list': latest_question_list,
+#    }
+#    return render(request, 'firstapp/index.html', context)
 
 def detail(request, question_id):
     """
