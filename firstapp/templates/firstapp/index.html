@@ -1,3 +1,5 @@
+{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'firstapp/style.css' %}" />
 {% if object_list %}
 {# self.object_list will contain the list of objects (usually, but not necessarily a queryset) that the view is operating upon #}
     <ul>
