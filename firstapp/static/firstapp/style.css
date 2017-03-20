@@ -17,3 +17,6 @@ body {
     font-size: 36pt;
     text-decoration: none;
 }
+.main-content {
+	padding-left: 20px;
+}
