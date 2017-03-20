@@ -1,12 +1,20 @@
 {% load static %}
-	<link rel="stylesheet" type="text/css" href="{% static 'firstapp/style.css' %}" />
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+	<link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="{% static 'firstapp/style.css' %}?={% now "U" %}" />
 {% if object_list %}
 {# self.object_list will contain the list of objects (usually, but not necessarily a queryset) that the view is operating upon #}
-    <ul>
-    {% for question in object_list %}
-        <li><a href="{% url 'firstapp:detail' question.id %}">{{ question.question_text }}</a></li>
-    {% endfor %}
-    </ul>
+	<div class="page-header">
+		<h1><a href="">Questions</a></h1>
+	</div>
+	<div>
+	    <ul>
+	    {% for question in object_list %}
+	        <li><a href="{% url 'firstapp:detail' question.id %}">{{ question.question_text }}</a></li>
+	    {% endfor %}
+	    </ul>
+	</div>
 {% else %}
     <p>No firstapp are available.</p>
 {% endif %}

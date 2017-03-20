@@ -1,6 +1,19 @@
+h1 {
+	font-family: 'Lobster';
+}
 li a {
-    color: green;
+    color: blue;
 }
 body {
-    background: white url("images/background.jpg") no-repeat right bottom;
+    background: white url("images/background.jpg") no-repeat center;
+}
+.page-header {
+    background-color: #ff9400;
+    margin-top: 0;
+    padding: 20px 20px 20px 40px;
+}
+.page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
+    color: #ffffff;
+    font-size: 36pt;
+    text-decoration: none;
 }
