@@ -17,7 +17,7 @@ class IndexView(generic.ListView):
 
     # By default, get_queryset() returns the value of the 'queryset' attribute
     # if it is set, otherwise it constructs a QuerySet
-    # by calling the all() method on the model attribute’s default manager.
+    # by calling the all() method on the model attribute's default manager.
     #
     # 'queryset': A QuerySet that represents the objects. If provided,
     # the value of queryset supersedes the value provided for model.
