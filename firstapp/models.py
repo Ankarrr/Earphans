@@ -21,3 +21,11 @@ class Choice(models.Model):
     votes = models.IntegerField(default=0)
     def __str__(self):
         return self.choice_text
+
+class Earphone(models.Model):
+    earphone_name = models.CharField(null=True, max_length=100)
+    brand_name = models.CharField(null=True, max_length=100)
+    earphone_description = models.CharField(null=True, max_length=1000)
+    price = models.PositiveIntegerField()
+    earphone_image = models.ImageField(null=True, upload_to='static/fistapp/images/earphones')
+    pub_date = models.DateTimeField('date published')
