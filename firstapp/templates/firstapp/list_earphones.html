@@ -1,0 +1,19 @@
+{% extends 'firstapp/base.html' %}
+{% load static %}
+{% block content %}
+	{% if object_list %}
+	{# self.object_list will contain the list of objects (usually, but not necessarily a queryset) that the view is operating upon #}
+		<div>
+		    {% for earphone in object_list %}
+			<ul>
+		        <li><a href="">{{ earphone.earphone_name }}</a></li>
+		        <li>{{ earphone.brand_name }}</li>
+		        <li>{{ earphone.price }}</li>
+		        <li><img src="{{ earphone.earphone_image.url }}" /></li>
+		    </ul>
+		    {% endfor %}
+		</div>
+	{% else %}
+	    <p>No earphone are available.</p>
+	{% endif %}
+{% endblock content %}

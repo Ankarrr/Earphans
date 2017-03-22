@@ -4,9 +4,13 @@ from django.http import Http404
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
-from .models import Question, Choice
+from .models import Question, Choice, Earphone
 
 # Create views through generic views here.
+class ListEarphonesView(generic.ListView):
+    template_name = 'firstapp/list_earphones.html'
+    model = Earphone
+
 class IndexView(generic.ListView):
     template_name = 'firstapp/index.html'
     model = Question

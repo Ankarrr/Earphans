@@ -6,6 +6,8 @@ from . import views
 app_name = 'firstapp'
 
 urlpatterns = [
+    url(r'earphones/$', views.ListEarphonesView.as_view(), name='earphones'),
+
     url(r'^$', views.IndexView.as_view(), name='index'),
 
     # ex: /firstapp/5
@@ -14,6 +16,7 @@ urlpatterns = [
     # (?P<name>pattern), where name is the name of the group and pattern is some pattern to match.
     # pk, The DetailView generic view expects the primary key value captured from the URL to be called "pk", so we've changed question_id to pk for the generic views.
     # $, finish
+    # name, this field can be used in tag 'url' in template
     url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
 
     # ex: /firstapp/5/results/
