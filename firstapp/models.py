@@ -27,5 +27,5 @@ class Earphone(models.Model):
     brand_name = models.CharField(null=True, max_length=100)
     earphone_description = models.CharField(null=True, max_length=1000)
     price = models.PositiveIntegerField()
-    earphone_image = models.ImageField(null=True, upload_to='static/fistapp/images/earphones')
+    earphone_image = models.ImageField(null=True, upload_to='uploads/earphone_images/')
     pub_date = models.DateTimeField('date published')
