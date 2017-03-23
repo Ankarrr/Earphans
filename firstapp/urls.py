@@ -8,6 +8,8 @@ app_name = 'firstapp'
 urlpatterns = [
     url(r'earphones/$', views.ListEarphonesView.as_view(), name='earphones'),
 
+    url(r'earphones/search/$', views.SearchForEarphones, name='search-for-earphones'),
+
     url(r'^$', views.IndexView.as_view(), name='index'),
 
     # ex: /firstapp/5

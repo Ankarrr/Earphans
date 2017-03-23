@@ -1,6 +1,13 @@
 {% extends 'firstapp/base.html' %}
 {% load static %}
 {% block content %}
+	<div>
+		<form action="{% url 'firstapp:search-for-earphones' %}" method="get">
+		{% csrf_token %}
+			<input type="text" name="query-string" />
+			<input type="submit" value="search" />
+		</form>
+	</div>
 	{% if object_list %}
 	{# self.object_list will contain the list of objects (usually, but not necessarily a queryset) that the view is operating upon #}
 		<div>

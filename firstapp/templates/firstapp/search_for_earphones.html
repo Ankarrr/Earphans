@@ -1,0 +1,15 @@
+{% extends 'firstapp/base.html' %}
+{% load static %}
+{% block content %}
+	<div>
+		<p>search for {{ query_string }}</p>
+		{% for earphone in earphones_list %}
+			<ul>
+				<li>{{ earphone.earphone_name }}</li>
+				<li>{{ earphone.brand_name }}</li>
+		        <li>{{ earphone.price }}</li>
+		        <li><img src="{{ earphone.earphone_image.url }}" /></li>
+			</ul>
+		{% endfor %}
+	</div>
+{% endblock content %}
