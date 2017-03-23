@@ -12,11 +12,14 @@ class ListEarphonesView(generic.ListView):
     model = Earphone
 
 def SearchForEarphones(request):
-    earphones_list = Earphone.objects.filter(earphone_name=request.GET['query-string'])
+    # search for names, brands:
+    earphones_list = Earphone.objects.filter(earphone_name__search=request.GET['query-string'])
     context = {
         'query_string': request.GET["query-string"],
         'earphones_list': earphones_list,
     }
+    # search for types:
+
     return render(request, 'firstapp/search_for_earphones.html', context)
 
 class IndexView(generic.ListView):
