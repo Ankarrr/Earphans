@@ -4,6 +4,13 @@
 	<div>
 		<form action="{% url 'firstapp:search-for-earphones' %}" method="get">
 		{% csrf_token %}
+			<input type="radio" name="type" id="type-earbunds" value="Earbuds"/>
+			<label for="type-earbunds">Earbuds</label>
+			<input type="radio" name="type" id="type-earbunds" value="on-ear"/>
+			<label for="type-earbunds">On-ear</label>
+			<input type="radio" name="type" id="type-earbunds" value="over-ear"/>
+			<label for="type-earbunds">Over-ear</label>
+			<br>
 			<input type="text" name="query-string" />
 			<input type="submit" value="search" />
 		</form>
@@ -16,6 +23,7 @@
 		        <li><a href="">{{ earphone.earphone_name }}</a></li>
 		        <li>{{ earphone.brand_name }}</li>
 		        <li>{{ earphone.price }}</li>
+		        <li>{{ earphone.earphone_description }}</li>
 		        <li><img src="{{ earphone.earphone_image.url }}" /></li>
 		    </ul>
 		    {% endfor %}

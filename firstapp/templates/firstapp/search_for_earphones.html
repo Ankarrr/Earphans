@@ -2,12 +2,13 @@
 {% load static %}
 {% block content %}
 	<div>
-		<p>search for {{ query_string }}</p>
+		<p>search for {{ query_string }}, type: {{ earphone_type }}</p>
 		{% for earphone in earphones_list %}
 			<ul>
 				<li>{{ earphone.earphone_name }}</li>
 				<li>{{ earphone.brand_name }}</li>
 		        <li>{{ earphone.price }}</li>
+		        <li>{{ earphone.earphone_description }}</li>
 		        <li><img src="{{ earphone.earphone_image.url }}" /></li>
 			</ul>
 		{% endfor %}
