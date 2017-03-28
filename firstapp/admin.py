@@ -28,8 +28,9 @@ class EarphoneAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,               {'fields': ['earphone_name']}),
         (None,               {'fields': ['brand_name']}),
-        (None,               {'fields': ['earphone_description']}),
+        (None,               {'fields': ['earphone_type']}),
         (None,               {'fields': ['price']}),
+        (None,               {'fields': ['earphone_features']}),
         (None,               {'fields': ['earphone_image']}),
         ('Date information', {'fields': ['pub_date']}),
     ]

@@ -13,7 +13,8 @@ class ListEarphonesView(generic.ListView):
 
 def SearchForEarphones(request):
     query_string = request.GET.get("query-string", False)
-    earphone_type = request.GET.get("type", False)
+    earphone_type = request.GET.get("earphone-type", False)
+    earphone_feature = request.GET.get("earphone-feature", False)
     earphones_list = Earphone.objects.all()
 
     # search for names, brands
@@ -22,11 +23,15 @@ def SearchForEarphones(request):
 
     # search for types
     if earphone_type:
-        earphones_list = earphones_list.filter(earphone_description__search=earphone_type)
+        earphones_list = earphones_list.filter(earphone_type__search=earphone_type)
+
+    if earphone_feature:
+        earphones_list = earphones_list.filter(earphone_features__contains=[earphone_feature])
 
     context = {
         'query_string': query_string,
         'earphone_type': earphone_type,
+        'earphone_feature': earphone_feature,
         'earphones_list': earphones_list,
     }
 

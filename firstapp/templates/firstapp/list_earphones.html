@@ -4,12 +4,21 @@
 	<div>
 		<form action="{% url 'firstapp:search-for-earphones' %}" method="get">
 		{% csrf_token %}
-			<input type="radio" name="type" id="type-earbunds" value="Earbuds"/>
-			<label for="type-earbunds">Earbuds</label>
-			<input type="radio" name="type" id="type-earbunds" value="on-ear"/>
+			<p>Types: </p>
+			<input type="radio" name="earphone-type" id="type-earbunds" value="Earbud"/>
+			<label for="type-earbunds">Earbud</label>
+			<input type="radio" name="earphone-type" id="type-earbunds" value="On-Ear"/>
 			<label for="type-earbunds">On-ear</label>
-			<input type="radio" name="type" id="type-earbunds" value="over-ear"/>
+			<input type="radio" name="earphone-type" id="type-earbunds" value="Over-Ear"/>
 			<label for="type-earbunds">Over-ear</label>
+			<br>
+			<p>Features: </p>
+			<input type="radio" name="earphone-feature" id="feature-wireless" value="Wireless"/>
+			<label for="feature-wireless">Wireless</label>
+			<input type="radio" name="earphone-feature" id="feature-microphone" value="Microphone"/>
+			<label for="feature-microphone">Microphone</label>
+			<input type="radio" name="earphone-feature" id="feature-phone-control" value="Phone-Control"/>
+			<label for="feature-phone-control">Phone-Control</label>
 			<br>
 			<input type="text" name="query-string" />
 			<input type="submit" value="search" />
@@ -23,7 +32,12 @@
 		        <li><a href="">{{ earphone.earphone_name }}</a></li>
 		        <li>{{ earphone.brand_name }}</li>
 		        <li>{{ earphone.price }}</li>
-		        <li>{{ earphone.earphone_description }}</li>
+		        <li>{{ earphone.earphone_type }}</li>
+		        <li>
+			    {% for feature in earphone.earphone_features %}
+					{{ feature }}
+			    {% endfor %}
+		        </li>
 		        <li><img src="{{ earphone.earphone_image.url }}" /></li>
 		    </ul>
 		    {% endfor %}
