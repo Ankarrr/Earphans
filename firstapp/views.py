@@ -35,7 +35,7 @@ def SearchForEarphones(request, earphone_feature):
         'earphones_list': earphones_list,
     }
 
-    return render(request, 'firstapp/search_for_earphones.html', context)
+    return render(request, 'firstapp/search_result_of_earphones.html', context)
 
 class IndexView(generic.ListView):
     template_name = 'firstapp/index.html'

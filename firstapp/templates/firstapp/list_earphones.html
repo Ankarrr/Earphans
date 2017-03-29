@@ -1,28 +1,5 @@
-{% extends 'firstapp/base.html' %}
-{% load static %}
+{% extends 'firstapp/base_search_for_earphones.html' %}
 {% block content %}
-	<div>
-		<div>
-			<span>Features: </span>
-			<a href="{% url 'firstapp:search-for-earphones-feature' 'Microphone' %}">Microphone</a>
-			<a href="{% url 'firstapp:search-for-earphones-feature' 'Wireless' %}">Wireless</a>
-			<a href="{% url 'firstapp:search-for-earphones-feature' 'Phone-Control' %}">Phone-Control</a>
-		</div>
-		<div>
-			<form action="{% url 'firstapp:search-for-earphones' %}" method="get">
-			{% csrf_token %}
-				<span>Types: </span>
-				<input type="radio" name="earphone-type" id="type-earbunds" value="Earbud"/>
-				<label for="type-earbunds">Earbud</label>
-				<input type="radio" name="earphone-type" id="type-earbunds" value="On-Ear"/>
-				<label for="type-earbunds">On-ear</label>
-				<input type="radio" name="earphone-type" id="type-earbunds" value="Over-Ear"/>
-				<label for="type-earbunds">Over-ear</label>
-				<input type="text" name="query-string" />
-				<input type="submit" value="search" />
-			</form>
-		</div>
-	</div>
 	{% if object_list %}
 	{# self.object_list will contain the list of objects (usually, but not necessarily a queryset) that the view is operating upon #}
 		<div>
