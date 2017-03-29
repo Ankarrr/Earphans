@@ -11,10 +11,9 @@ class ListEarphonesView(generic.ListView):
     template_name = 'firstapp/list_earphones.html'
     model = Earphone
 
-def SearchForEarphones(request):
+def SearchForEarphones(request, earphone_feature):
     query_string = request.GET.get("query-string", False)
     earphone_type = request.GET.get("earphone-type", False)
-    earphone_feature = request.GET.get("earphone-feature", False)
     earphones_list = Earphone.objects.all()
 
     # search for names, brands
@@ -25,6 +24,7 @@ def SearchForEarphones(request):
     if earphone_type:
         earphones_list = earphones_list.filter(earphone_type__search=earphone_type)
 
+    # search for features
     if earphone_feature:
         earphones_list = earphones_list.filter(earphone_features__contains=[earphone_feature])
 

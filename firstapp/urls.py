@@ -6,9 +6,11 @@ from . import views
 app_name = 'firstapp'
 
 urlpatterns = [
-    url(r'earphones/$', views.ListEarphonesView.as_view(), name='earphones'),
+    url(r'^earphones/$', views.ListEarphonesView.as_view(), name='earphones'),
 
-    url(r'earphones/search/$', views.SearchForEarphones, name='search-for-earphones'),
+    url(r'^earphones/search/$', views.SearchForEarphones, name='search-for-earphones'),
+
+    url(r'^earphones/search/(?P<earphone_feature>[\w\-]+)/$', views.SearchForEarphones, name='search-for-earphones-feature'),
 
     url(r'^$', views.IndexView.as_view(), name='index'),
 

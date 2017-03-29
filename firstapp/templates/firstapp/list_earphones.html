@@ -2,27 +2,26 @@
 {% load static %}
 {% block content %}
 	<div>
-		<form action="{% url 'firstapp:search-for-earphones' %}" method="get">
-		{% csrf_token %}
-			<p>Types: </p>
-			<input type="radio" name="earphone-type" id="type-earbunds" value="Earbud"/>
-			<label for="type-earbunds">Earbud</label>
-			<input type="radio" name="earphone-type" id="type-earbunds" value="On-Ear"/>
-			<label for="type-earbunds">On-ear</label>
-			<input type="radio" name="earphone-type" id="type-earbunds" value="Over-Ear"/>
-			<label for="type-earbunds">Over-ear</label>
-			<br>
-			<p>Features: </p>
-			<input type="radio" name="earphone-feature" id="feature-wireless" value="Wireless"/>
-			<label for="feature-wireless">Wireless</label>
-			<input type="radio" name="earphone-feature" id="feature-microphone" value="Microphone"/>
-			<label for="feature-microphone">Microphone</label>
-			<input type="radio" name="earphone-feature" id="feature-phone-control" value="Phone-Control"/>
-			<label for="feature-phone-control">Phone-Control</label>
-			<br>
-			<input type="text" name="query-string" />
-			<input type="submit" value="search" />
-		</form>
+		<div>
+			<span>Features: </span>
+			<a href="{% url 'firstapp:search-for-earphones-feature' 'Microphone' %}">Microphone</a>
+			<a href="{% url 'firstapp:search-for-earphones-feature' 'Wireless' %}">Wireless</a>
+			<a href="{% url 'firstapp:search-for-earphones-feature' 'Phone-Control' %}">Phone-Control</a>
+		</div>
+		<div>
+			<form action="{% url 'firstapp:search-for-earphones' %}" method="get">
+			{% csrf_token %}
+				<span>Types: </span>
+				<input type="radio" name="earphone-type" id="type-earbunds" value="Earbud"/>
+				<label for="type-earbunds">Earbud</label>
+				<input type="radio" name="earphone-type" id="type-earbunds" value="On-Ear"/>
+				<label for="type-earbunds">On-ear</label>
+				<input type="radio" name="earphone-type" id="type-earbunds" value="Over-Ear"/>
+				<label for="type-earbunds">Over-ear</label>
+				<input type="text" name="query-string" />
+				<input type="submit" value="search" />
+			</form>
+		</div>
 	</div>
 	{% if object_list %}
 	{# self.object_list will contain the list of objects (usually, but not necessarily a queryset) that the view is operating upon #}
