@@ -10,7 +10,7 @@ urlpatterns = [
 
     url(r'^earphones/search/$', views.SearchForEarphones, name='search-for-earphones'),
 
-    url(r'^earphones/search/(?P<earphone_feature>[\w\-]+)/$', views.SearchForEarphones, name='search-for-earphones-feature'),
+    url(r'^earphones/search/(?P<earphone_feature>[\w\-]+)/$', views.RedirectForEarphonesFeatures, name='redirect-for-earphones-features'),
 
     url(r'^$', views.IndexView.as_view(), name='index'),
 

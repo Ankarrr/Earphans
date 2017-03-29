@@ -11,9 +11,13 @@ class ListEarphonesView(generic.ListView):
     template_name = 'firstapp/list_earphones.html'
     model = Earphone
 
-def SearchForEarphones(request, earphone_feature):
+def SearchForEarphones(request):
     query_string = request.GET.get("query-string", False)
     earphone_type = request.GET.get("earphone-type", False)
+    earphone_features = []
+    earphone_features.append(request.GET.get("earphone-feature-wireless", False))
+    earphone_features.append(request.GET.get("earphone-feature-microphone", False))
+    earphone_features.append(request.GET.get("earphone-feature-phone-control", False))
     earphones_list = Earphone.objects.all()
 
     # search for names, brands
@@ -25,17 +29,36 @@ def SearchForEarphones(request, earphone_feature):
         earphones_list = earphones_list.filter(earphone_type__search=earphone_type)
 
     # search for features
-    if earphone_feature:
-        earphones_list = earphones_list.filter(earphone_features__contains=[earphone_feature])
+    earphones_list = SearchForEarphonesFeatures(earphones_list, earphone_features)
 
     context = {
         'query_string': query_string,
         'earphone_type': earphone_type,
-        'earphone_feature': earphone_feature,
+        'earphone_features': earphone_features,
         'earphones_list': earphones_list,
     }
 
     return render(request, 'firstapp/search_result_of_earphones.html', context)
+
+def SearchForEarphonesFeatures(earphones_list, features_list):
+    for feature in features_list:
+        if feature:
+            earphones_list = earphones_list.filter(earphone_features__contains=[feature]) 
+    return earphones_list
+
+def RedirectForEarphonesFeatures(request, earphone_feature):
+    earphones_list = Earphone.objects.all()
+    if earphone_feature:
+        earphones_list = earphones_list.filter(earphone_features__contains=[earphone_feature])
+    context = {
+        'earphone_feature': earphone_feature,
+        'earphones_list': earphones_list,
+    }
+    return render(request, 'firstapp/search_result_of_earphones.html', context)
+
+# ---------------------
+# codes for experiments
+# ---------------------
 
 class IndexView(generic.ListView):
     template_name = 'firstapp/index.html'
@@ -68,8 +91,6 @@ class DetailView(generic.DetailView):
 class ResultsView(generic.DetailView):
     model = Question
     template_name = 'firstapp/results.html'
-
-# Create your views here.
 
 # def index(request):
 #    latest_question_list = Question.objects.order_by('-pub_date')[:5]

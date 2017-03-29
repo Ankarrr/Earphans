@@ -2,14 +2,11 @@
 {% block above-content %}
 	<div>
 		<div>
-			<span>Features: </span>
-			<a href="{% url 'firstapp:search-for-earphones-feature' 'Microphone' %}">Microphone</a>
-			<a href="{% url 'firstapp:search-for-earphones-feature' 'Wireless' %}">Wireless</a>
-			<a href="{% url 'firstapp:search-for-earphones-feature' 'Phone-Control' %}">Phone-Control</a>
-		</div>
-		<div>
 			<form action="{% url 'firstapp:search-for-earphones' %}" method="get">
 			{% csrf_token %}
+				<input type="text" name="query-string" />
+				<input type="submit" value="search" />
+				<br>
 				<span>Types: </span>
 				<input type="radio" name="earphone-type" id="type-earbunds" value="Earbud"/>
 				<label for="type-earbunds">Earbud</label>
@@ -17,8 +14,14 @@
 				<label for="type-earbunds">On-ear</label>
 				<input type="radio" name="earphone-type" id="type-earbunds" value="Over-Ear"/>
 				<label for="type-earbunds">Over-ear</label>
-				<input type="text" name="query-string" />
-				<input type="submit" value="search" />
+				<br>
+				<span>Features: </span>
+				<input type="radio" name="earphone-feature-wireless" id="feature-wireless" value="Wireless"/>
+				<label for="feature-wireless">Wireless</label>
+				<input type="radio" name="earphone-feature-microphone" id="feature-microphone" value="Microphone"/>
+				<label for="feature-microphone">Microphone</label>
+				<input type="radio" name="earphone-feature-phone-control" id="feature-phone-control" value="Phone-Control"/>
+				<label for="feature-phone-control">Phone-Control</label>
 			</form>
 		</div>
 	</div>
