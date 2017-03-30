@@ -45,5 +45,7 @@ class Earphone(models.Model):
         default=[],
         help_text='values like Wireless,Microphone,Phone Control...',
     )
-    earphone_image = models.ImageField(null=True, upload_to='uploads/earphone_images/')
+    earphone_image = models.ImageField(null=True, upload_to='uploads/earphone_images/', blank=True)
     pub_date = models.DateTimeField('date published')
+    def __str__(self):
+        return self.earphone_name
