@@ -1,20 +1,24 @@
 {% extends 'firstapp/base_search_for_earphones.html' %}
 {% block content %}
+	<p>search for {{ query_string }}, type: {{ earphone_type }}, feature: {{ earphone_feature }}</p>
 	<div>
-		<p>search for {{ query_string }}, type: {{ earphone_type }}, feature: {{ earphone_feature }}</p>
-		{% for earphone in earphones_list %}
-			<ul>
-				<li>{{ earphone.earphone_name }}</li>
-				<li>{{ earphone.brand_name }}</li>
-		        <li>{{ earphone.price }}</li>
-		        <li>{{ earphone.earphone_type }}</li>
-		        <li>
-			    {% for feature in earphone.earphone_features %}
-					{{ feature }}
-			    {% endfor %}
-		        </li>
-		        <li><img src="{{ earphone.earphone_image.url }}" /></li>
-			</ul>
-		{% endfor %}
+		{% if earphones_list %}
+			{% for earphone in earphones_list %}
+				<ul>
+					<li>{{ earphone.earphone_name }}</li>
+					<li>{{ earphone.brand_name }}</li>
+			        <li>{{ earphone.price }}</li>
+			        <li>{{ earphone.earphone_type }}</li>
+			        <li>
+				    {% for feature in earphone.earphone_features %}
+						{{ feature }}
+				    {% endfor %}
+			        </li>
+			        <li><img src="{{ earphone.earphone_image.url }}" /></li>
+				</ul>
+			{% endfor %}
+		{% else %}
+			<p>No earphones are available.</p>
+		{% endif %}
 	</div>
 {% endblock content %}
