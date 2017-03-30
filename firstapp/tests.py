@@ -1,9 +1,83 @@
 from django.test import TestCase
 from django.utils import timezone
-from .models import Question
+from .models import Question, Earphone
 from django.urls import reverse
 
 import datetime
+
+class ListEarphonesViewTests(TestCase):
+    def test_list_earphones_with_no_earphones(self):
+        """
+        If no earphones exist, an appropriate message should be displayed.
+        """
+        response = self.client.get(reverse('firstapp:earphones'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "No earphones are available.")
+        self.assertQuerysetEqual(response.context['object_list'], [])
+
+class SearchForEarphonesTests(TestCase):
+    def test_search_for_earphones_with_no_earphones_searched(self):
+        """
+        If no earphones are searched, an appropriate message should be displayed.
+        """
+        response = self.client.get(reverse('firstapp:search-for-earphones'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "No earphones are available.")
+        self.assertQuerysetEqual(response.context['earphones_list'], [])
+
+    def test_search_for_earphones_with_name(self):
+        create_earphone('Test earphone', 1000, 'Bose', 'Earbud', [])
+        create_earphone('test earphone', 1000, 'Bose', 'Earbud', [])
+        create_earphone('XXX earphone', 1000, 'Bose', 'Earbud', [])
+        response = self.client.get(reverse('firstapp:search-for-earphones'), {'query-string': 'test'})
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerysetEqual(
+            response.context['earphones_list'],
+            ['<Earphone: Test earphone>', '<Earphone: test earphone>'],
+            ordered=False
+        )
+
+    def test_search_for_earphones_with_type(self):
+        create_earphone('One earphone', 1000, 'Bose', 'Earbud', [])
+        create_earphone('Second earphone', 1000, 'Bose', 'Earbud', [])
+        create_earphone('Third earphone', 1000, 'Bose', 'On-Ear', [])
+        response = self.client.get(reverse('firstapp:search-for-earphones'), {'earphone-type': 'Earbud'})
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerysetEqual(
+            response.context['earphones_list'],
+            ['<Earphone: One earphone>', '<Earphone: Second earphone>'],
+            ordered=False
+        )
+
+    def test_search_for_earphones_with_features(self):
+        create_earphone('One earphone', 1000, 'Bose', 'Earbud', ['Wireless'])
+        create_earphone('Second earphone', 1000, 'Bose', 'Earbud', ['Microphone'])
+        create_earphone('Third earphone', 1000, 'Bose', 'On-Ear', ['Wireless', 'Microphone'])
+        response = self.client.get(
+            reverse('firstapp:search-for-earphones'),
+            {'earphone-feature-wireless': 'Wireless', 'earphone-feature-microphone': 'Microphone'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerysetEqual(
+            response.context['earphones_list'],
+            ['<Earphone: Third earphone>'],
+            ordered=False
+        )
+
+def create_earphone(name, price, brand, earphone_type, features):
+    return Earphone.objects.create(
+        earphone_name=name,
+        price=price,
+        brand_name=brand,
+        earphone_type=earphone_type,
+        pub_date=timezone.now(),
+        earphone_features=features,
+        earphone_image=False
+    )
+
+# ---------------------
+# codes for experiments
+# ---------------------
 
 class QuestionMethodTests(TestCase):
     def test_was_published_recently_with_future_question(self):
