@@ -1,4 +1,4 @@
-##run test server
+## run test server
 
 1. . venv/bin/activate
 2. python nage.py runserver
